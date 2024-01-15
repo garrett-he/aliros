@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "aliros"
+version = "0.1.0"
+description = "A command-line tool to organize resources by Resource Orchestration Service for Alibaba Cloud."
+authors = ["Garrett HE <garrett.he@hotmail.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+aliyun-python-sdk-core = "2.13.15"
+aliyun-python-sdk-ros = "3.2.0"
+jmespath = "0.9.5"
+pycryptodome = "3.9.7"
+PyYAML = "5.3.1"
+
+[tool.poetry.scripts]
+aliros = "aliros.__main__:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
