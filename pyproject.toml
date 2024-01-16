@@ -16,7 +16,7 @@ pycryptodome = "3.9.7"
 PyYAML = "5.3.1"
 
 [tool.poetry.scripts]
-aliros = "aliros.__main__:main"
+aliros = "aliros.__main__:cli"
 
 [build-system]
 requires = ["poetry-core"]
