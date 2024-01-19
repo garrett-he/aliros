@@ -4,6 +4,7 @@ from .delete_stack import delete_stack_command
 from .describe_resource_type import describe_resource_type_command
 from .describe_resource_type_template import describe_resource_type_template_command
 from .describe_stack import describe_stack_command
+from .describe_stack_resource import describe_stack_resource_command
 
 command_group = [
     abandon_stack_command,
@@ -12,4 +13,5 @@ command_group = [
     describe_resource_type_command,
     describe_resource_type_template_command,
     describe_stack_command,
+    describe_stack_resource_command,
 ]
