@@ -6,6 +6,7 @@ from .describe_resource_type_template import describe_resource_type_template_com
 from .describe_stack import describe_stack_command
 from .describe_stack_resource import describe_stack_resource_command
 from .describe_stack_template import describe_stack_template_command
+from .list_regions import list_regions_command
 
 command_group = [
     abandon_stack_command,
@@ -16,4 +17,5 @@ command_group = [
     describe_stack_command,
     describe_stack_resource_command,
     describe_stack_template_command,
+    list_regions_command,
 ]

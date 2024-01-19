@@ -1,15 +1,15 @@
 import json
 from aliyunsdkros.request.v20150901.DescribeRegionsRequest import DescribeRegionsRequest
 
-
-def add_command_arguments(parser):
-    pass
+import click
 
 
-def execute(args, client):
+@click.command('list-regions')
+def list_regions_command(ctx: click.Context):
+    asc_client = ctx.obj['asc_client']
     request = DescribeRegionsRequest()
 
-    status, headers, body = client.get_response(request)
+    status, headers, body = asc_client.get_response(request)
 
     if 200 <= status < 300:
         print(json.loads(body))
