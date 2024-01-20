@@ -9,6 +9,7 @@ from .describe_stack_template import describe_stack_template_command
 from .list_regions import list_regions_command
 from .list_resource_types import list_resource_types_command
 from .list_stack_events import list_stack_events_command
+from .list_stack_resources import list_stack_resources_command
 
 command_group = [
     abandon_stack_command,
@@ -22,4 +23,5 @@ command_group = [
     list_regions_command,
     list_resource_types,
     list_stack_events_command,
+    list_stack_resources_command,
 ]
