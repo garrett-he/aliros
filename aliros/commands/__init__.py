@@ -11,6 +11,7 @@ from .list_resource_types import list_resource_types_command
 from .list_stack_events import list_stack_events_command
 from .list_stack_resources import list_stack_resources_command
 from .list_stacks import list_stacks_command
+from .preview_stack import preview_stack_command
 
 command_group = [
     abandon_stack_command,
@@ -26,4 +27,5 @@ command_group = [
     list_stack_events_command,
     list_stack_resources_command,
     list_stacks_command,
+    preview_stack_command,
 ]
