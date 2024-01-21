@@ -6,6 +6,8 @@ import click
 
 @click.command('list-regions')
 def list_regions_command(ctx: click.Context):
+    """List available regions."""
+
     asc_client = ctx.obj['asc_client']
     request = DescribeRegionsRequest()
 

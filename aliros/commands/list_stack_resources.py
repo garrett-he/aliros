@@ -6,7 +6,7 @@ import click
 
 
 @click.command('list-stack-resources')
-@click.option('--stack-name', help='Name of stack', required=True)
+@click.option('--stack-name', help='Name of stack.', required=True)
 def list_stack_resources_command(ctx: click.Context, stack_name: str):
     """List resources of the specified stack."""
 

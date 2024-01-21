@@ -7,7 +7,7 @@ import click
 @click.command('describe-resource-type-template')
 @click.option('--type-name', help='Name of resource type.', required=True)
 def describe_resource_type_template_command(ctx: click.Context, type_name: str):
-    """Describe details of the specified resource type template."""
+    """Describe resource type template."""
 
     asc_client = ctx.obj['asc_client']
     request = DescribeResourceTypeTemplateRequest()

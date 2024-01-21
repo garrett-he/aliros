@@ -7,7 +7,7 @@ import click
 
 
 @click.command('validate-template')
-@click.option('--template-file', help='Path of template file', required=True, type=click.Path(exists=True, dir_okay=False))
+@click.option('--template-file', help='Path of template file.', required=True, type=click.Path(exists=True, dir_okay=False))
 def validate_template_command(ctx: click.Context, template_file: str):
     """Validate the specified template."""
 

@@ -7,9 +7,9 @@ import click
 
 
 @click.command('update-stack')
-@click.option('--stack-name', help='Name of stack', required=True)
-@click.option('--template-file', help='Path of template file', required=True, type=click.Path(exists=True, dir_okay=False))
-@click.option('--timeout-mins', help='Minutes to timeout', type=int, default=60)
+@click.option('--stack-name', help='Name of stack.', required=True)
+@click.option('--template-file', help='Path of template file.', required=True, type=click.Path(exists=True, dir_okay=False))
+@click.option('--timeout-mins', help='Minutes to timeout.', type=int, default=60)
 def update_stack_command(ctx: click.Context, stack_name: str, template_file: str, timeout_mins: int):
     """Update the specified stack."""
 

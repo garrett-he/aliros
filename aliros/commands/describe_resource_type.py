@@ -5,9 +5,9 @@ import click
 
 
 @click.command('describe-resource-type')
-@click.option('--type-name', help='Name of stack', required=True)
+@click.option('--type-name', help='Name of stack.', required=True)
 def describe_resource_type_command(ctx: click.Context, type_name: str):
-    """Describe details of the specified resource type."""
+    """Describe resource type."""
 
     asc_client = ctx.obj['asc_client']
 

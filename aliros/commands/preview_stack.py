@@ -7,11 +7,11 @@ import click
 
 
 @click.command('preview-stack')
-@click.option('--stack-name', help='Name of stack', required=True)
-@click.option('--template-file', help='Path of template file', required=True, type=click.Path(exists=True, dir_okay=False))
-@click.option('--parameters-file', help='URL of parameters file', required=False, type=click.Path(exists=True, dir_okay=False))
-@click.option('--timeout-mins', help='Minutes to timeout', type=int, default=60)
-@click.option('--disable-rollback', help='Disable rollback if failed', required=False, is_flag=True, default=False)
+@click.option('--stack-name', help='Name of stack.', required=True)
+@click.option('--template-file', help='Path of template file.', required=True, type=click.Path(exists=True, dir_okay=False))
+@click.option('--parameters-file', help='URL of parameters file.', required=False, type=click.Path(exists=True, dir_okay=False))
+@click.option('--timeout-mins', help='Minutes to timeout.', type=int, default=60)
+@click.option('--disable-rollback', help='Disable rollback if failed.', required=False, is_flag=True, default=False)
 def preview_stack_command(ctx: click.Context, stack_name: str, template_file: str, parameters_file: str, timeout_mins: int, disable_rollback: bool):
     """Preview of creating stack."""
 

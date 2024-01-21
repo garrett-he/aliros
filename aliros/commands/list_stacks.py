@@ -5,11 +5,11 @@ import click
 
 
 @click.command('list-stacks')
-@click.option('--stack-id', help='ID of stack', required=True)
-@click.option('--name', help='Name of stack', required=True)
-@click.option('--status', help='Status of stack', required=True)
-@click.option('--page-number', help='Number of page', type=int, default=1, required=False)
-@click.option('--page-size', help='Size of pages', type=int, default=10, required=False)
+@click.option('--stack-id', help='ID of stack.', required=True)
+@click.option('--name', help='Name of stack.', required=True)
+@click.option('--status', help='Status of stack.', required=True)
+@click.option('--page-number', help='Number of page.', type=int, default=1, required=False)
+@click.option('--page-size', help='Size of pages.', type=int, default=10, required=False)
 def list_stacks_command(ctx: click.Context, stack_id: str, name: str, status: str, page_number: int, page_size: int):
     """List stacks."""
 

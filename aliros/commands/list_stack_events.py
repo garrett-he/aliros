@@ -6,12 +6,12 @@ import click
 
 
 @click.command('list-stack-events')
-@click.option('--stack-name', help='Name of stack', required=True)
-@click.option('--resource-status', help='Status of resource', required=False)
-@click.option('--resource-name', help='Name of resource', required=False)
-@click.option('--resource-type', help='Type of resource', type=int, default=1, required=False)
-@click.option('--page-number', help='Number of page', type=int, default=1, required=False)
-@click.option('--page-size', help='Size of pages', type=int, default=10, required=False)
+@click.option('--stack-name', help='Name of stack.', required=True)
+@click.option('--resource-status', help='Status of resource.', required=False)
+@click.option('--resource-name', help='Name of resource.', required=False)
+@click.option('--resource-type', help='Type of resource.', type=int, default=1, required=False)
+@click.option('--page-number', help='Number of page.', type=int, default=1, required=False)
+@click.option('--page-size', help='Size of pages.', type=int, default=10, required=False)
 def list_stack_events_command(ctx: click.Context, stack_name: str, resource_status: str, resource_name: str, resource_type: int, page_number: int,
                               page_size: int):
     """List events of the specified stack."""

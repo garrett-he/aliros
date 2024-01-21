@@ -5,8 +5,10 @@ import click
 
 
 @click.command('list-resource-types')
-@click.option('--support-status', help='Status of support', required=False)
+@click.option('--support-status', help='Status of support.', required=False)
 def list_resource_types_command(ctx: click.Context, support_status: str):
+    """List available resource types."""
+
     asc_client = ctx.obj['asc_client']
 
     request = DescribeResourceTypesRequest()
