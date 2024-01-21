@@ -25,7 +25,7 @@ command_group = [
     describe_stack_resource_command,
     describe_stack_template_command,
     list_regions_command,
-    list_resource_types,
+    list_resource_types_command,
     list_stack_events_command,
     list_stack_resources_command,
     list_stacks_command,
