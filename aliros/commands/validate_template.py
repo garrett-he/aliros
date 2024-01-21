@@ -3,14 +3,18 @@ from aliros.template import Template_YAML
 from aliros.stack import send_request
 from aliyunsdkros.request.v20150901.ValidateTemplateRequest import ValidateTemplateRequest
 
-
-def add_command_arguments(parser):
-    parser.add_argument('--template-url', metavar='string', required=True, help='url of template file')
+import click
 
 
-def execute(args, client):
+@click.command('validate-template')
+@click.option('--template-file', help='Path of template file', required=True, type=click.Path(exists=True, dir_okay=False))
+def validate_template_command(ctx: click.Context, template_file: str):
+    """Validate the specified template."""
+
+    asc_client = ctx.obj['asc_client']
+
     template = Template_YAML()
-    template.load(args.template_url)
+    template.load(template_file)
 
     body = {
         'Template': json.dumps(template.content),
@@ -20,4 +24,4 @@ def execute(args, client):
     request.set_content(json.dumps(body))
     request.set_content_type('application/json')
 
-    send_request(client, request)
+    send_request(asc_client, request)
