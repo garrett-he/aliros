@@ -15,6 +15,10 @@ jmespath = "0.9.5"
 pycryptodome = "3.9.7"
 PyYAML = "5.3.1"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+
 [tool.poetry.scripts]
 aliros = "aliros.__main__:cli"
 
