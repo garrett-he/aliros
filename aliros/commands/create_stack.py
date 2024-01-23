@@ -1,9 +1,10 @@
 import json
-from aliros.template import Template_YAML
-from aliros.stack import send_request
-from aliyunsdkros.request.v20150901.CreateStacksRequest import CreateStacksRequest
 
 import click
+from aliyunsdkros.request.v20150901.CreateStacksRequest import CreateStacksRequest
+
+from aliros.template import YamlTemplate
+from aliros.stack import send_request
 
 
 @click.command('create-stack')
@@ -15,9 +16,9 @@ import click
 def create_stack_command(ctx: click.Context, stack_name: str, template_file: str, parameters_file: str, timeout_mins: int, disable_rollback: bool):
     """Create a new stack."""
 
-    asc_client = ctx.obj['asc_client']
+    acs_client = ctx.obj['acs_client']
 
-    template = Template_YAML()
+    template = YamlTemplate()
     template.load(template_file)
 
     body = {
@@ -28,7 +29,7 @@ def create_stack_command(ctx: click.Context, stack_name: str, template_file: str
     }
 
     if parameters_file is not None:
-        parameters = Template_YAML()
+        parameters = YamlTemplate()
         parameters.load(parameters_file)
         body['Parameters'] = parameters.content
 
@@ -36,4 +37,4 @@ def create_stack_command(ctx: click.Context, stack_name: str, template_file: str
     request.set_content(json.dumps(body))
     request.set_content_type('application/json')
 
-    send_request(asc_client, request)
+    send_request(acs_client, request)

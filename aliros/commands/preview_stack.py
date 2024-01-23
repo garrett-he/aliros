@@ -1,9 +1,10 @@
 import json
-from aliros.stack import send_request
-from aliros.template import Template_YAML
-from aliyunsdkros.request.v20150901.PreviewStackRequest import PreviewStackRequest
 
 import click
+from aliyunsdkros.request.v20150901.PreviewStackRequest import PreviewStackRequest
+
+from aliros.stack import send_request
+from aliros.template import YamlTemplate
 
 
 @click.command('preview-stack')
@@ -15,9 +16,9 @@ import click
 def preview_stack_command(ctx: click.Context, stack_name: str, template_file: str, parameters_file: str, timeout_mins: int, disable_rollback: bool):
     """Preview of creating stack."""
 
-    asc_client = ctx.obj['asc_client']
+    acs_client = ctx.obj['acs_client']
 
-    template = Template_YAML()
+    template = YamlTemplate()
     template.load(template_file)
 
     body = {
@@ -28,7 +29,7 @@ def preview_stack_command(ctx: click.Context, stack_name: str, template_file: st
     }
 
     if parameters_file is not None:
-        parameters = Template_YAML()
+        parameters = YamlTemplate()
         parameters.load(parameters_file)
         body['Parameters'] = parameters.content
 
@@ -36,4 +37,4 @@ def preview_stack_command(ctx: click.Context, stack_name: str, template_file: st
     request.set_content(json.dumps(body))
     request.set_content_type('application/json')
 
-    send_request(asc_client, request)
+    send_request(acs_client, request)

@@ -1,8 +1,7 @@
-import json
-from aliyunsdkros.request.v20150901.DescribeResourcesRequest import DescribeResourcesRequest
-from aliyunsdkros.request.v20150901.DescribeStacksRequest import DescribeStacksRequest
-
 import click
+from aliyunsdkros.request.v20150901.DescribeResourcesRequest import DescribeResourcesRequest
+
+from aliros.stack import find_stack_id, send_request
 
 
 @click.command('list-stack-resources')
@@ -10,27 +9,12 @@ import click
 def list_stack_resources_command(ctx: click.Context, stack_name: str):
     """List resources of the specified stack."""
 
-    asc_client = ctx.obj['asc_client']
+    acs_client = ctx.obj['acs_client']
 
-    request = DescribeStacksRequest()
-    request.set_Name(stack_name)
-    status, headers, body = asc_client.get_response(request)
-    response = json.loads(body)
-
-    if response['TotalCount'] != 1:
-        raise Exception('Stacks with name "%s" not unique.' % stack_name)
-
-    stack_id = response['Stacks'][0]['Id']
+    stack_id = find_stack_id(acs_client, stack_name)
 
     request = DescribeResourcesRequest()
 
     request.set_StackName(stack_name)
     request.set_StackId(stack_id)
-
-    status, headers, body = asc_client.get_response(request)
-
-    if 200 <= status < 300:
-        print(json.loads(body))
-        return 0
-    else:
-        raise Exception('Unexpected errors: status=%d, error=%s' % (status, body))
+    send_request(acs_client, request)

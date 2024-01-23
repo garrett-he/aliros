@@ -1,7 +1,7 @@
-import json
+import click
 from aliyunsdkros.request.v20150901.DescribeResourceTypeTemplateRequest import DescribeResourceTypeTemplateRequest
 
-import click
+from aliros.stack import send_request
 
 
 @click.command('describe-resource-type-template')
@@ -9,15 +9,9 @@ import click
 def describe_resource_type_template_command(ctx: click.Context, type_name: str):
     """Describe resource type template."""
 
-    asc_client = ctx.obj['asc_client']
-    request = DescribeResourceTypeTemplateRequest()
+    acs_client = ctx.obj['acs_client']
 
+    request = DescribeResourceTypeTemplateRequest()
     request.set_TypeName(type_name)
 
-    status, headers, body = asc_client.get_response(request)
-
-    if 200 <= status < 300:
-        print(json.loads(body))
-        return 0
-    else:
-        raise Exception('Unexpected errors: status=%d, error=%s' % (status, body))
+    send_request(acs_client, request)

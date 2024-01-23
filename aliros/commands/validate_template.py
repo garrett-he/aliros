@@ -1,9 +1,10 @@
 import json
-from aliros.template import Template_YAML
-from aliros.stack import send_request
-from aliyunsdkros.request.v20150901.ValidateTemplateRequest import ValidateTemplateRequest
 
 import click
+from aliyunsdkros.request.v20150901.ValidateTemplateRequest import ValidateTemplateRequest
+
+from aliros.template import YamlTemplate
+from aliros.stack import send_request
 
 
 @click.command('validate-template')
@@ -11,9 +12,9 @@ import click
 def validate_template_command(ctx: click.Context, template_file: str):
     """Validate the specified template."""
 
-    asc_client = ctx.obj['asc_client']
+    acs_client = ctx.obj['acs_client']
 
-    template = Template_YAML()
+    template = YamlTemplate()
     template.load(template_file)
 
     body = {
@@ -24,4 +25,4 @@ def validate_template_command(ctx: click.Context, template_file: str):
     request.set_content(json.dumps(body))
     request.set_content_type('application/json')
 
-    send_request(asc_client, request)
+    send_request(acs_client, request)

@@ -1,7 +1,7 @@
-from aliros.stack import find_stack_id, send_request
+import click
 from aliyunsdkros.request.v20150901.DeleteStackRequest import DeleteStackRequest
 
-import click
+from aliros.stack import find_stack_id, send_request
 
 
 @click.command('delete-stack')
@@ -9,10 +9,10 @@ import click
 def delete_stack_command(ctx: click.Context, stack_name: str):
     """Delete the specified stack."""
 
-    asc_client = ctx.obj['asc_client']
+    acs_client = ctx.obj['acs_client']
     request = DeleteStackRequest()
 
     request.set_StackName(stack_name)
-    request.set_StackId(find_stack_id(asc_client, stack_name))
+    request.set_StackId(find_stack_id(acs_client, stack_name))
 
-    send_request(asc_client, request)
+    send_request(acs_client, request)

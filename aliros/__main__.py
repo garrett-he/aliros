@@ -3,9 +3,9 @@ from configparser import ConfigParser, NoSectionError, NoOptionError
 from pathlib import Path
 
 import click
+from aliyunsdkcore.client import AcsClient
 
 from aliros import __version__
-from aliyunsdkcore import client
 from aliros.commands import command_group
 
 
@@ -36,20 +36,20 @@ def cli(ctx: click.Context, region: str, profile: str):
         try:
             config.read(config_file)
             region = config.get(profile, 'region')
-        except (NoSectionError, NoOptionError) as e:
-            ctx.fail(f'Load configurations: {e.message}')
+        except (NoSectionError, NoOptionError) as exc:
+            ctx.fail(f'Load configurations: {exc.message}')
             return
 
     try:
         config.read(creds_file)
         access_key_id = config.get(profile, 'alicloud_access_key_id')
         secret_access_key = config.get(profile, 'alicloud_secret_access_key')
-    except (NoSectionError, NoOptionError) as e:
-        ctx.fail(f'Load credentials: {e.message}')
+    except (NoSectionError, NoOptionError) as exc:
+        ctx.fail(f'Load credentials: {exc.message}')
         return
 
-    ctx.obj['asc_client'] = client.AcsClient(access_key_id, secret_access_key, region)
+    ctx.obj['acs_client'] = AcsClient(access_key_id, secret_access_key, region)
 
 
 if __name__ == '__main__':
-    cli()
+    cli()  # pylint: disable=no-value-for-parameter

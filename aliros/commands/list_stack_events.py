@@ -1,8 +1,7 @@
-import json
-from aliyunsdkros.request.v20150901.DescribeEventsRequest import DescribeEventsRequest
-from aliyunsdkros.request.v20150901.DescribeStacksRequest import DescribeStacksRequest
-
 import click
+from aliyunsdkros.request.v20150901.DescribeEventsRequest import DescribeEventsRequest
+
+from aliros.stack import find_stack_id, send_request
 
 
 @click.command('list-stack-events')
@@ -16,33 +15,25 @@ def list_stack_events_command(ctx: click.Context, stack_name: str, resource_stat
                               page_size: int):
     """List events of the specified stack."""
 
-    asc_client = ctx.obj['asc_client']
+    acs_client = ctx.obj['acs_client']
 
-    request = DescribeStacksRequest()
-    request.set_Name(stack_name)
-    status, headers, body = asc_client.get_response(request)
-    response = json.loads(body)
-
-    if response['TotalCount'] != 1:
-        raise Exception('Stacks with name "%s" not unique.' % stack_name)
-
-    stack_id = response['Stacks'][0]['Id']
+    stack_id = find_stack_id(acs_client, stack_name)
 
     request = DescribeEventsRequest()
 
     request.set_StackName(stack_name)
     request.set_StackId(stack_id)
 
-    resource_status and request.set_ResourceStatus(resource_status)
-    resource_name and request.set_ResourceName(resource_status)
-    resource_type and request.set_ResourceType(resource_status)
+    if resource_status is not None:
+        request.set_ResourceStatus(resource_status)
+
+    if resource_name is not None:
+        request.set_ResourceName(resource_status)
+
+    if resource_type is not None:
+        request.set_ResourceType(resource_status)
+
     request.set_PageNumber(page_number)
     request.set_PageSize(page_size)
 
-    status, headers, body = asc_client.get_response(request)
-
-    if 200 <= status < 300:
-        print(json.loads(body))
-        return 0
-    else:
-        raise Exception('Unexpected errors: status=%d, error=%s' % (status, body))
+    send_request(acs_client, request)

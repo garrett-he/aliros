@@ -1,7 +1,8 @@
-import json
 from aliyunsdkros.request.v20150901.DescribeResourceTypeDetailRequest import DescribeResourceTypeDetailRequest
 
 import click
+
+from aliros.stack import send_request
 
 
 @click.command('describe-resource-type')
@@ -9,16 +10,9 @@ import click
 def describe_resource_type_command(ctx: click.Context, type_name: str):
     """Describe resource type."""
 
-    asc_client = ctx.obj['asc_client']
+    acs_client = ctx.obj['acs_client']
 
     request = DescribeResourceTypeDetailRequest()
-
     request.set_TypeName(type_name)
 
-    status, headers, body = asc_client.get_response(request)
-
-    if 200 <= status < 300:
-        print(json.loads(body))
-        return 0
-    else:
-        raise Exception('Unexpected errors: status=%d, error=%s' % (status, body))
+    send_request(acs_client, request)
