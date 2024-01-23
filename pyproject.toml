@@ -5,6 +5,7 @@ description = "A command-line tool to organize resources by Resource Orchestrati
 authors = ["Garrett HE <garrett.he@hotmail.com>"]
 license = "GPL-3.0"
 readme = "README.md"
+packages = [{include = "aliros", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.7.2,<3.12"
