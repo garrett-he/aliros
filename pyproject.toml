@@ -38,6 +38,7 @@ pylint = "^2.17.5"
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 tox = "^4.6.4"
+pyinstaller = "^5.13.0"
 
 [tool.poetry.scripts]
 aliros = "aliros.__main__:cli"
