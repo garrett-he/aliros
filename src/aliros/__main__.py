@@ -30,6 +30,9 @@ def cli(ctx: click.Context, region: str, profile: str):
     config_file = Path.home() / '.aliros/config'
     creds_file = Path.home() / '.aliros/credentials'
 
+    if creds_file.stat().st_mode & 0o77 != 0:
+        ctx.fail(f'Credential file "{creds_file}" is too open.')
+
     config = ConfigParser()
     config.read(config_file)
 
