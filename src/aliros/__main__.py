@@ -31,14 +31,13 @@ def cli(ctx: click.Context, region: str, profile: str):
     creds_file = Path.home() / '.aliros/credentials'
 
     config = ConfigParser()
+    config.read(config_file)
 
     if region is None:
         try:
-            config.read(config_file)
             region = config.get(profile, 'region')
         except (NoSectionError, NoOptionError) as exc:
-            ctx.fail(f'Load configurations: {exc.message}')
-            return
+            region = 'cn-hangzhou'
 
     try:
         config.read(creds_file)
