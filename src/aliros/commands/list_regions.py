@@ -1,14 +1,13 @@
-from aliyunsdkros.request.v20150901.DescribeRegionsRequest import DescribeRegionsRequest
+from aliyunsdkros.request.v20190910.DescribeRegionsRequest import DescribeRegionsRequest
 
 import click
 
-from aliros.stack import send_request
+from aliros.alicloud import send_request, dump_response
+
 
 @click.command('list-regions')
+@click.pass_context
 def list_regions_command(ctx: click.Context):
     """List available regions."""
 
-    acs_client = ctx.obj['acs_client']
-    request = DescribeRegionsRequest()
-
-    send_request(acs_client, request)
+    dump_response(send_request(ctx.obj['acs_client'], DescribeRegionsRequest()))
