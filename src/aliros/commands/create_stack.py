@@ -2,9 +2,10 @@ import json
 
 import click
 from aliyunsdkros.request.v20190910.CreateStackRequest import CreateStackRequest
+from aliyunsdkros.request.v20190910.PreviewStackRequest import PreviewStackRequest
 
 from aliros.template import YamlTemplate
-from aliros.alicloud import send_request
+from aliros.alicloud import send_request, dump_response
 
 
 @click.command('create-stack')
@@ -13,8 +14,9 @@ from aliros.alicloud import send_request
 @click.option('--parameters-file', help='URL of parameters file.', required=False, type=click.Path(exists=True, dir_okay=False))
 @click.option('--timeout-mins', help='Minutes to timeout.', type=int, default=60)
 @click.option('--disable-rollback', help='Disable rollback if failed.', required=False, is_flag=True, default=False)
+@click.option('--dry', help='Dry run stack creation.', required=False, is_flag=True, default=False)
 @click.pass_context
-def create_stack_command(ctx: click.Context, stack_name: str, template_file: str, parameters_file: str, timeout_mins: int, disable_rollback: bool):
+def create_stack_command(ctx: click.Context, stack_name: str, template_file: str, parameters_file: str, timeout_mins: int, disable_rollback: bool, dry: bool):
     """Create a new stack."""
 
     acs_client = ctx.obj['acs_client']
@@ -27,10 +29,14 @@ def create_stack_command(ctx: click.Context, stack_name: str, template_file: str
         parameters.load(parameters_file)
         template.content['Parameters'] = parameters.content
 
-    request = CreateStackRequest()
+    if dry:
+        request = PreviewStackRequest()
+    else:
+        request = CreateStackRequest()
+
     request.set_StackName(stack_name)
     request.set_TemplateBody(json.dumps(template.content))
     request.set_TimeoutInMinutes(timeout_mins)
     request.set_DisableRollback(disable_rollback)
 
-    send_request(acs_client, request)
+    dump_response(send_request(acs_client, request))
